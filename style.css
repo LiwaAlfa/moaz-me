@@ -41,6 +41,8 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(214, 194, 156, 0.2);
+  
+  /* transform: translateY(); */
 }
 .navbar a {
   color: #d6c29c;
@@ -69,9 +71,9 @@ body {
   transition: 0.3s;
 }
 .logo-box {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  /* position: absolute; */
+  /* top: 20px; */
+  /* right: 20px; */
   display: flex;
   flex-direction: column;
   align-items: center;
