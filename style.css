@@ -1,206 +1,172 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Cairo', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
 }
 
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
-
-/* الفيديو */
 .video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
-
-/* طبقة غامقة */
 .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    top: 0;
-    left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
 }
-
-/* الناف بار */
 .navbar {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: fit-content;
-
-    padding: 15px 50px;
-    border-radius: 50px;
-
-    display: flex;
-    gap: 35px;
-    align-items: center;
-
-    white-space: nowrap;
-
-    /* Glass Effect */
-    background: rgba(214, 194, 156, 0.1); /* لون خفيف شفاف */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(214, 194, 156, 0.2);
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  padding: 15px 50px;
+  border-radius: 50px;
+  display: flex;
+  gap: 35px;
+  align-items: center;
+  white-space: nowrap;
+  background: rgba(214, 194, 156, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(214, 194, 156, 0.2);
 }
-
-/* روابط */
 .navbar a {
-    color: #d6c29c;
-    text-decoration: none;
-    font-size: 22px;
-    transition: 0.3s;
-   
+  color: #d6c29c;
+  text-decoration: none;
+  font-size: 22px;
+  transition: 0.3s;
 }
-.navbar a p{
-    text-shadow: 5px 0px 10px #d6c29c ;
+.navbar a p {
+  text-shadow: 5px 0px 10px #d6c29c;
 }
-
-/* hover */
 .navbar a:hover {
-    color: #d6c29c;
-    transform: scale(1.1);
+  color: #d6c29c;
+  transform: scale(1.1);
 }
-
-/* زر تسجيل الدخول */
 .login-btn {
-    position: absolute;
-    top: 5px;
-    left: 20px;
-    font-size: 22px;
-   /* background: #d6c29c; */
-    color: #d6c29c;
-    padding: 10px 40px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  font-size: 22px;
+  /* background: #d6c29c; */
+  color: #d6c29c;
+  padding: 10px 40px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
 }
-
-/*.login-btn:hover {
-    background: #c2ae85;
-}*/
-
-/* اللوجو */
 .logo-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* أهم سطر للتوسيط */
-
-    color: #d6c29c;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #d6c29c;
 }
-
 .logo-img {
-    width: 130px;
-    height: auto;
+  width: 130px;
+  height: auto;
 }
-
-
 .logo-text-svg {
-    width: 130px;      /* نفس عرض اللوغو */
-    margin-top: -30px; /* قربه أكثر للوغو */
+  width: 130px;
+  margin-top: -30px;
 }
-
-/* العنوان */
 .title-container {
-    position: absolute;
-    bottom: 50px;
-    right: 30px;
-    text-align: right;
-    width: auto;
-    max-width:90%;
-    direction: rtl;
+  position: absolute;
+  bottom: 50px;
+  right: 30px;
+  text-align: right;
+  width: auto;
+  max-width: 90%;
+  direction: rtl;
 }
-
-/* كلمة دمشق */
 .title {
-    font-size: 70px;
-    color: #d6c29c;
-    font-weight: bold;
-
-    display: inline-block;        /* مهم جداً */
-    white-space: nowrap;          /* يمنع النزول لسطر جديد */
-    overflow: hidden;
-
-    border-left: 4px solid #d6c29c;
-
-    width: 0;
-    animation: 
+  font-size: 70px;
+  color: #d6c29c;
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-left: 4px solid #d6c29c;
+  width: 0;
+  animation:
     typing 2s steps(6) forwards,
     blink 0.7s infinite,
     hideCursor 0s linear 2s forwards;
-
 }
 
-/* الجملة الصغيرة */
 .subtitle {
-    font-size: 40px;
-    color: #d6c29c;
-    margin-top: 10px;
-
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-
-    border-left: 3px solid #eee;
-
-    width: 0;
-
-    animation: 
+  font-size: 40px;
+  color: #d6c29c;
+  margin-top: 10px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-left: 3px solid #eee;
+  width: 0;
+  animation:
     typing-sub 4s steps(30) forwards,
     blink 0.7s infinite,
     hideCursor 0s linear 6.2s forwards;
-    animation-delay: 2.2s; /* بعد انتهاء "دمشق" */
+  animation-delay: 2.2s;
 }
 
 @keyframes typing-sub {
-    from { width: 0 }
-    to { width: 30ch }
+  from {
+    width: 0;
+  }
+  to {
+    width: 30ch;
+  }
 }
 
-/* أنيميشن الكتابة */
 @keyframes typing {
-    from { width: 0 }
-    to { width: 6ch}
+  from {
+    width: 0;
+  }
+  to {
+    width: 6ch;
+  }
 }
 
-/* وميض المؤشر */
 @keyframes blink {
-    0% { border-color: transparent }
-    50% { border-color: #d6c29c }
-    100% { border-color: transparent }
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #d6c29c;
+  }
+  100% {
+    border-color: transparent;
+  }
 }
-
-/* ظهور الجملة */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes hideCursor {
-    to {
-        border-color: transparent;
-    }
+  to {
+    border-color: transparent;
+  }
 }
