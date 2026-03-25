@@ -27,12 +27,11 @@ body {
 }
 .navbar {
   position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 30px;
+  left: 12%;
   width: fit-content;
   padding: 15px 50px;
-  border-radius: 50px;
+  border-radius: 20px;
   display: flex;
   gap: 35px;
   align-items: center;
@@ -41,6 +40,9 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(214, 194, 156, 0.2);
+  transform: translateY(-150px);
+  animation: slideDown 2s ease forwards;
+  animation-delay: 8s;
 }
 .navbar a {
   color: #d6c29c;
@@ -76,6 +78,9 @@ body {
   flex-direction: column;
   align-items: center;
   color: #d6c29c;
+  transform: translateY(-180px);
+  animation: slideDown 2s ease forwards;
+  animation-delay: 6s;
 }
 .logo-img {
   width: 130px;
@@ -168,5 +173,11 @@ body {
 @keyframes hideCursor {
   to {
     border-color: transparent;
+  }
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(0px);
   }
 }
