@@ -30,19 +30,21 @@ body {
   left: 8%;
   width: fit-content;
   padding: 15px 50px;
-  border-radius: 20px;
+  border-radius: 0px 0px 20px 20px;
   display: flex;
   gap: 35px;
   align-items: center;
   white-space: nowrap;
-  background: rgba(214, 194, 156, 0.1);
+  background: rgb(33, 32, 30);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(214, 194, 156, 0.2);
+  border: 1px solid rgba(214, 194, 156, 1);
+  border-top: 0px;
   overflow: visible;
   transform: translateY(-200px);
-  animation: slideDown 4s ease forwards;
-  animation-delay: 6s;
+  animation: slideDown 2s ease forwards;
+  animation-delay: 4s;
+  height: 70px;
 }
 .navbar a {
   color: #d6c29c;
@@ -70,21 +72,37 @@ body {
   transition: 0.3s;
 }
 .logo-box {
+  position: relative;
+  /* right:35px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #d6c29c;
-  transform: scale(1.1); 
   animation: 4s ease;
   animation-delay: 10s;
+  border: 1px solid rgba(214, 194, 156, 1);
+  background: rgb(33, 32, 30);
+  border-top: 0px;
+  /* border-bottom: 0px; */
+  /* border-left: 0px; */
+  /* border-right: 0px; */
+  border-radius:0px 0px 20px 20px;
+  margin-top: 60px;
+  overflow: visible;
+  height: 75px;
+  margin-top: 144px;
+  /* padding-bottom: 150px; */
+  min-width: 150px;
 }
 .logo-img {
   width: 130px;
   height: auto;
+  position: absolute;
+  top:-75px;
 }
 .logo-text-svg {
-  width: 130px;
-  margin-top: -30px;
+  margin-top:35px;
+  /* margin-bottom: 10px; */
 }
 .title-container {
   position: absolute;
@@ -124,6 +142,48 @@ body {
     hideCursor 0s linear 6.2s forwards;
   animation-delay: 2.2s;
 }
+.phrase1{
+    transform: translateX(-5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 9.2s;
+}
+.phrase2{
+  transform: translateX(-5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 8.2s;
+}
+.phrase3{
+    transform: translateX(-5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 7.2s;
+}
+.phrase4{
+    transform: translateX(-5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 6.2s;
+}
+.phrase5{
+    transform: translateX(5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 6.2s;
+}
+.phrase6{
+    transform: translateX(5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 7.2s;
+}
+.phrase7{
+    transform: translateX(5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 8.2s;
+}
+.phrase8{
+    transform: translateX(5000px);
+  animation: slideRight1 1s ease forwards;
+  animation-delay: 9.2s;
+}
+
+
 @keyframes typing-sub {
   from {
     width: 0;
@@ -168,6 +228,11 @@ body {
 }
 @keyframes slideDown {
   to {
-    transform: translateY(25px);
+    transform: translateY(0px);
+  }
+}
+@keyframes slideRight1 {
+  to {
+    transform: translateX(0px);
   }
 }
