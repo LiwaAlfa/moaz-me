@@ -208,7 +208,7 @@ body {
 .service-card button {
   margin-top: 15px;
   padding: 10px 15px;
-  background-color: rgba(214, 194, 156, 1);;
+  background-color: rgba(214, 194, 156, 1);
   color: white;
   border: none;
   border-radius: 5px;
@@ -216,12 +216,13 @@ body {
 }
 
 .service-card button:hover {
-  background-color: rgba(214, 194, 156, 0.8);;
+  background-color: rgba(214, 194, 156, 0.8);
 }
 
 .header {
   width: 100%;
   padding: 25px;
+  padding-top: 100px;
 }
 @keyframes typing-sub {
   from {
