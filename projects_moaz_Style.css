@@ -80,7 +80,7 @@ html, body {
   flex-direction: row-reverse; 
   gap: 0;
   min-height: calc(100vh - 70px - 48px);
-  padding-top: 120px;
+  /* padding-top: 120px; */
 }
 
 .projectList {
@@ -205,6 +205,7 @@ html, body {
   flex-direction: column;
   gap: 0.4rem;
   transition: transform 0.15s, box-shadow 0.15s;
+  background-color: #fff;
 }
 
 .field-box:hover {
@@ -218,12 +219,14 @@ html, body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   opacity: 0.75;
+  color: #6c6961;
 }
 
 .field-box p {
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.5;
+  color:#6c6961;
 }
 
 .name-box {

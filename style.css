@@ -199,6 +199,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: 0.3s;
+  color:rgb(85, 82, 77);
 }
 
 .service-card:hover {
@@ -208,7 +209,7 @@ body {
 .service-card button {
   margin-top: 15px;
   padding: 10px 15px;
-  background-color: rgba(214, 194, 156, 1);
+  background-color: rgb(85, 82, 77);
   color: white;
   border: none;
   border-radius: 5px;
