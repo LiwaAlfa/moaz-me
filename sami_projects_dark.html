@@ -51,7 +51,7 @@
   .cbtn {
     font-size: 11px;
     padding: 5px 14px;
-    background: rgba(255,255,255, 1);
+    background: rgba(255, 255, 255, 1);
     color: #161616;
     border: 0.5px solid #161616;
     border-radius: 20px;
@@ -416,7 +416,6 @@
     border-radius: 2px;
   }
 
-  /* page 2 */
   .p2main {
     padding: 16px;
     display: flex;
@@ -607,13 +606,10 @@
     margin-top: 2px;
   }
 </style>
-
 <div class="portal">
   <div class="topbar">
     <div class="logo">
-
-        <img class="logo-img" src="assets/logo.png" alt="logo"/>
-
+      <img class="logo-img" src="assets/logo.png" alt="logo" />
     </div>
     <span class="tb-title">منصة المشاريع</span>
     <div class="tb-right">
@@ -621,7 +617,6 @@
     </div>
   </div>
   <div class="bc" id="bc"><span class="act">الرئيسية</span></div>
-
   <div class="page vis" id="page1">
     <div class="layout">
       <div class="sidebar">
@@ -666,7 +661,6 @@
             <div class="schange" style="color: rgba(255, 255, 255)">معلّق</div>
           </div>
         </div>
-
         <div class="total-bar">
           <div>
             <div class="total-label">القيمة الإجمالية للتمويل</div>
@@ -697,8 +691,6 @@
             </div>
           </div>
         </div>
-
-        <!-- CHARTS -->
         <div class="charts-row">
           <div class="chart-card">
             <div class="chart-title">المشاريع حسب القطاع</div>
@@ -849,8 +841,6 @@
             </div>
           </div>
         </div>
-
-        <!-- SEARCH -->
         <div class="search-row">
           <input
             class="sbox"
@@ -868,14 +858,10 @@
             مكتمل
           </div>
         </div>
-
-        <!-- PROJECTS GRID -->
         <div class="pgrid" id="pgrid"></div>
       </div>
     </div>
   </div>
-
-  <!-- PAGE 2 -->
   <div class="page" id="page2">
     <div class="layout">
       <div class="sidebar">
@@ -1193,7 +1179,6 @@
     </div>
   </div>
 </div>
-
 <script>
   const projects = [
     {
@@ -1278,11 +1263,9 @@
       dot: "#ebebeb",
     },
   ];
-
   let cFilter = "الكل",
     cSector = "الكل",
     cSearch = "";
-
   function renderGrid() {
     const g = document.getElementById("pgrid");
     const f = projects.filter((p) => {
@@ -1310,7 +1293,6 @@
       )
       .join("");
   }
-
   function openProject(idx) {
     const p = projects[idx];
     document.getElementById("pname").value = p.name;
@@ -1322,14 +1304,12 @@
     document.getElementById("bc").innerHTML =
       `<span onclick="goHome()" style="cursor:pointer;color:rgba(255,255,255,0.35)">الرئيسية</span><span style="color:rgba(255,255,255,0.2);margin:0 4px">›</span><span style="color:rgba(255,255,255,0.35)">${p.sector}</span><span style="color:rgba(255,255,255,0.2);margin:0 4px">›</span><span class="act">${p.name}</span>`;
   }
-
   function goHome() {
     document.getElementById("page1").classList.add("vis");
     document.getElementById("page2").classList.remove("vis");
     document.getElementById("bc").innerHTML =
       `<span class="act">الرئيسية</span>`;
   }
-
   function filterSector(el, s) {
     document
       .querySelectorAll("#page1 .si")
@@ -1344,18 +1324,15 @@
     }
     renderGrid();
   }
-
   function setFilter(f, el) {
     cFilter = f;
     document.querySelectorAll(".fbtn").forEach((x) => x.classList.remove("on"));
     el.classList.add("on");
     renderGrid();
   }
-
   function filterSearch() {
     cSearch = document.getElementById("sinput").value;
     renderGrid();
   }
-
   renderGrid();
 </script>
