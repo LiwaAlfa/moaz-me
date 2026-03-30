@@ -1189,6 +1189,7 @@
       pct: 60,
       bg: "#1d9e75",
       dot: "#ebebeb",
+      image:"assets/image1",
     },
     {
       name: "مبادرة الصحة الريفية",
@@ -1198,6 +1199,7 @@
       pct: 35,
       bg: "#378add",
       dot: "#ebebeb",
+      image:"assets/image2",
     },
     {
       name: "توسعة شبكة الطرق السريعة",
@@ -1207,6 +1209,7 @@
       pct: 100,
       bg: "#5f5e5a",
       dot: "#ebebeb",
+      image:"assets/image3",
     },
     {
       name: "منصة الخدمات الحكومية الذكية",
@@ -1216,6 +1219,7 @@
       pct: 75,
       bg: "#7f77dd",
       dot: "#ebebeb",
+      image:"assets/image4",
     },
     {
       name: "مشروع التشجير الوطني",
@@ -1225,6 +1229,7 @@
       pct: 50,
       bg: "#639922",
       dot: "#ebebeb",
+      image:"assets/image6",
     },
     {
       name: "محطة طاقة شمسية",
@@ -1234,6 +1239,7 @@
       pct: 10,
       bg: "#ba7517",
       dot: "#ebebeb",
+      image:"assets/image1",
     },
     {
       name: "برنامج التدريب المهني",
@@ -1243,6 +1249,7 @@
       pct: 100,
       bg: "#1d9e75",
       dot: "#ebebeb",
+      image:"assets/image2",
     },
     {
       name: "نظام إدارة النفايات الذكي",
@@ -1252,6 +1259,7 @@
       pct: 45,
       bg: "#639922",
       dot: "#ebebeb",
+      image:"assets/image3",
     },
     {
       name: "مستشفى منطقة الشمال",
@@ -1261,6 +1269,7 @@
       pct: 100,
       bg: "#378add",
       dot: "#ebebeb",
+      image:"assets/image4",
     },
   ];
   let cFilter = "الكل",
@@ -1279,7 +1288,8 @@
       .map(
         (p) => `
     <div class="pc" onclick="openProject(${projects.indexOf(p)})">
-      <div class="pthumb" style="background:${p.bg}">
+      <!-- <div class="pthumb" style="background:${p.bg}"> -->
+      <div class="pthumb" style="background-url:${p.image}">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="rgba(255,255,255,0.06)"/><circle cx="12" cy="13" r="4" fill="rgba(255,255,255,0.1)"/><path d="M3 26l9-9 6 6 5-5 10 10H3z" fill="rgba(255,255,255,0.07)"/></svg>
         <div class="ptag">${p.sector}</div>
         <div class="pdot" style="background:${p.dot}"></div>
