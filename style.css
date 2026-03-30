@@ -178,20 +178,17 @@ body {
   animation: slideRight1 1s ease forwards;
   animation-delay: 9.2s;
 }
-
 .services {
   padding: 40px;
 }
 .title-services {
   margin-bottom: 20px;
 }
-
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
-
 .service-card {
   background: white;
   padding: 20px;
@@ -199,13 +196,11 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: 0.3s;
-  color:rgb(85, 82, 77);
+  color: rgb(85, 82, 77);
 }
-
 .service-card:hover {
   transform: translateY(-5px);
 }
-
 .service-card button {
   margin-top: 15px;
   padding: 10px 15px;
@@ -215,11 +210,9 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-
 .service-card button:hover {
   background-color: rgba(214, 194, 156, 0.8);
 }
-
 .header {
   width: 100%;
   padding: 25px;
