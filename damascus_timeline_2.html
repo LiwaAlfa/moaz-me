@@ -1,0 +1,605 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    direction: rtl;
+    font-family: var(--font-sans), "Segoe UI", sans-serif;
+  }
+  .timeline-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+    background: linear-gradient(
+      135deg,
+      #2e200a 0%,
+      #3e3e16 40%,
+      #60400f 70%,
+      #2e291a 100%
+    );
+    border-radius: var(--border-radius-lg);
+    position: relative;
+    min-height: 520px;
+  }
+  .timeline-inner {
+    display: flex;
+    align-items: center;
+    padding: 240px 80px;
+    width: max-content;
+    position: relative;
+  }
+  .timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 80px;
+    right: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #edb13a, #f7d755, #ecd148, #f59e0b);
+    transform: translateY(-50%);
+    border-radius: 2px;
+  }
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 0 18px;
+    cursor: pointer;
+  }
+  .card {
+    width: 160px;
+    height: 210px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+  }
+  .card:hover {
+    transform: scale(1.08) translateY(-6px);
+  }
+  .card.active {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 0 3px #f7b455,
+      0 16px 40px rgba(247, 188, 85, 0.4);
+  }
+  .card-top {
+    background: linear-gradient(135deg, #956b1d, #9e874f, #513d0a);
+  }
+  .card-bottom {
+    background: linear-gradient(135deg, #956b1d, #9e874f, #513d0a);
+  }
+  .card-img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+  .card-info {
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  }
+  .card-emoji {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .card-year {
+    font-size: 11px;
+    color: #f7df55;
+    font-weight: 500;
+  }
+  .card-label {
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .connector {
+    width: 2px;
+    height: 48px;
+    background: linear-gradient(
+      180deg,
+      rgba(247, 207, 85, 0.8),
+      rgba(247, 155, 85, 0.3)
+    );
+  }
+  .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #a855f7;
+    border: 3px solid #fff;
+    z-index: 10;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 12px rgba(247, 215, 85, 0.6);
+  }
+  .dot.active {
+    transform: scale(1.5);
+    background: #f59e0b;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.7);
+  }
+  .card-wrapper-top {
+    flex-direction: column;
+  }
+  .card-wrapper-bottom {
+    flex-direction: column-reverse;
+    margin-top: 0;
+  }
+  .card-wrapper-bottom .card {
+    margin-top: 0;
+  }
+  .card-wrapper-bottom .connector {
+    background: linear-gradient(
+      0deg,
+      rgba(168, 85, 247, 0.8),
+      rgba(168, 85, 247, 0.3)
+    );
+  }
+  .detail-panel {
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #7d5c1b, #7f6b1d, #6a5d19, #65460f);
+    border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+    display: none;
+    direction: rtl;
+    color: #e2e8f0;
+  }
+  .detail-panel.visible {
+    display: block;
+  }
+  .detail-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(247, 188, 85, 0.3);
+    padding-bottom: 16px;
+  }
+  .detail-emoji-big {
+    font-size: 48px;
+  }
+  .detail-year {
+    font-size: 13px;
+    color: #f7df55;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .detail-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .detail-label-badge {
+    display: inline-block;
+    background: rgba(247, 198, 85, 0.2);
+    border: 1px solid rgba(247, 169, 85, 0.4);
+    color: #f7df55;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+  .detail-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .detail-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #cbd5e1;
+  }
+  .detail-details {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #94a3b8;
+  }
+  .detail-facts {
+    margin-top: 16px;
+  }
+  .detail-facts-title {
+    font-size: 12px;
+    color: #f7df55;
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .fact-tag {
+    display: inline-block;
+    background: rgba(237, 171, 58, 0.25);
+    border: 1px solid rgba(237, 156, 58, 0.4);
+    color: #f7df55;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin: 3px 3px 3px 0;
+  }
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .popup-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .popup-box {
+    background: linear-gradient(135deg, #4b3d1b 0%, #81682e 50%, #4b351b 100%);
+    border: 1px solid rgba(247, 180, 85, 0.4);
+    border-radius: 20px;
+    max-width: 560px;
+    width: 92%;
+    padding: 32px;
+    direction: rtl;
+    position: relative;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .popup-overlay.visible .popup-box {
+    transform: scale(1) translateY(0);
+  }
+  .popup-close {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .popup-emoji {
+    font-size: 52px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .popup-year {
+    font-size: 13px;
+    color: #f7ab55;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .popup-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .popup-label-badge {
+    display: inline-block;
+    background: rgba(247, 193, 85, 0.2);
+    border: 1px solid rgba(247, 190, 85, 0.4);
+    color: #f7df55;
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .popup-divider {
+    height: 1px;
+    background: rgba(247, 174, 85, 0.3);
+    margin: 16px 0;
+  }
+  .popup-desc {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #e2e8f0;
+    margin-bottom: 16px;
+  }
+  .popup-details {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #94a3b8;
+    margin-bottom: 20px;
+  }
+  .popup-facts-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .popup-fact-tag {
+    background: rgba(237, 156, 58, 0.3);
+    border: 1px solid rgba(237, 180, 58, 0.5);
+    color: #f7df55;
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+  .image_details {
+    width: 200px;
+    height: 100px;
+    border-radius: 20px;
+  }
+</style>
+<div id="root" style="border-radius: var(--border-radius-lg); overflow: hidden">
+  <div class="timeline-wrapper" id="timelineWrapper">
+    <div class="timeline-line" id="timelineLine"></div>
+    <div class="timeline-inner" id="timelineInner"></div>
+  </div>
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-header">
+      <!-- <span class="detail-emoji-big" id="dp-emoji"></span> -->
+      <img class="image_details" id="dp-emoji" src="./assets/10.png" />
+      <div>
+        <div class="detail-year" id="dp-year"></div>
+        <div class="detail-title" id="dp-title"></div>
+        <span class="detail-label-badge" id="dp-label"></span>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div>
+        <p class="detail-desc" id="dp-desc"></p>
+      </div>
+      <div>
+        <p class="detail-details" id="dp-details"></p>
+        <div class="detail-facts" id="dp-facts"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box" id="popupBox">
+    <button class="popup-close" id="popupClose">✕</button>
+    <!-- <span class="popup-emoji" id="pu-emoji"></span> -->
+     <img id="pu-emoji" src="./assets/10.png" class="image_details"/>
+    <div class="popup-year" id="pu-year"></div>
+    <div class="popup-title" id="pu-title"></div>
+    <span class="popup-label-badge" id="pu-label"></span>
+    <div class="popup-divider"></div>
+    <p class="popup-desc" id="pu-desc"></p>
+    <p class="popup-details" id="pu-details"></p>
+    <div class="popup-facts-row" id="pu-facts"></div>
+  </div>
+</div>
+<script>
+  const events = [
+    {
+      year: "~10,000 ق.م",
+      label: "بدايات التحضر",
+      emoji: "🏺",
+      title: "أقدم مدينة مأهولة في العالم",
+      desc: "تُعدّ دمشق من أقدم المدن المأهولة باستمرار في التاريخ البشري. كشفت الحفريات الأثرية عن آثار استيطان بشري يعود إلى الألف التاسع قبل الميلاد.",
+      details:
+        "الدراسات الأثرية تشير إلى أن البشر استوطنوا منطقة غوطة دمشق منذ فجر التاريخ، مستفيدين من نهر بردى وتربتها الخصبة.",
+      facts: ["غوطة دمشق الخضراء", "نهر بردى", "موقع استراتيجي فريد"],
+    },
+    {
+      year: "~3,000 ق.م",
+      label: "الحقبة الكنعانية",
+      emoji: "🏛",
+      title: "دمشق الكنعانية",
+      desc: "ظهرت دمشق كمدينة متطورة في عصر البرونز. ذُكرت في النصوص المصرية القديمة بوصفها 'ديماشقا'، وكانت مركزاً تجارياً مهماً.",
+      details:
+        "في هذه الحقبة أرسى الكنعانيون أسس المدينة المنظمة. وثّقت ألواح تل العمارنة المصرية تواصل ملوك دمشق مع الفراعنة.",
+      facts: [
+        "ذُكرت في ألواح تل العمارنة",
+        "طريق القوافل",
+        "بين الرافدين ومصر",
+      ],
+    },
+    {
+      year: "~900 ق.م",
+      label: "مملكة آرام",
+      emoji: "⚔️",
+      title: "دمشق عاصمة الآراميين",
+      desc: "غدت دمشق عاصمة المملكة الآرامية القوية تحت حكم الملك الحدد الأول، وبلغت ذروة نفوذها في القرن التاسع ق.م.",
+      details:
+        "طوّر الآراميون اللغة الآرامية التي انتشرت لاحقاً في كل أنحاء الشرق الأدنى. كانت دمشق مركزاً للحضارة والتجارة.",
+      facts: ["الملك الحدد الأول", "اللغة الآرامية", "قوة إقليمية مهيمنة"],
+    },
+    {
+      year: "333 ق.م",
+      label: "الفتح المقدوني",
+      emoji: "🏹",
+      title: "الإسكندر الأكبر يفتح دمشق",
+      desc: "بعد معركة إيسوس، استسلمت دمشق لقوات الإسكندر الأكبر وبدأ عصر هيلنستي جديد.",
+      details:
+        "أدخل الغزو الهيلنستي الثقافة اليونانية. ورث السلوقيون المدينة وحكموها لقرنين مما أثّر في تخطيطها العمراني.",
+      facts: ["معركة إيسوس 333 ق.م", "كنوز داريوس الثالث", "العصر الهيلنستي"],
+    },
+    {
+      year: "64 ق.م",
+      label: "دمشق الرومانية",
+      emoji: "🏟",
+      title: "دمشق تحت الحكم الروماني",
+      desc: "ضمّ بومبيوس دمشق إلى الجمهورية الرومانية، فشُيّد معبد جوبيتر العظيم وأُنشئ الكارديو.",
+      details:
+        "بُني معبد جوبيتر الضخم حيث يقوم اليوم الجامع الأموي. مُدّت الشوارع الرومانية المستقيمة كالشارع المستقيم المذكور في الإنجيل.",
+      facts: ["الجنرال بومبيوس", "معبد جوبيتر", "الشارع المستقيم"],
+    },
+    {
+      year: "636 م",
+      label: "الفتح الإسلامي",
+      emoji: "🕌",
+      title: "الفتح الإسلامي لدمشق",
+      desc: "في معركة اليرموك، فُتحت دمشق على يد المسلمين مع الحفاظ على أهلها وكنائسهم وحقوقهم.",
+      details:
+        "منح أبو عبيدة أهل دمشق أماناً شاملاً وحرية دينية. تحوّل نصف كنيسة يوحنا المعمدان إلى مسجد.",
+      facts: ["معركة اليرموك 636م", "أبو عبيدة وخالد", "أمان شامل للأهالي"],
+    },
+    {
+      year: "661 م",
+      label: "العاصمة الأموية",
+      emoji: "🌙",
+      title: "دمشق عاصمة الخلافة الأموية",
+      desc: "جعل معاوية دمشق عاصمةً لإمبراطورية تمتد من الأندلس إلى الهند. عصرها الذهبي الأول.",
+      details:
+        "بنى الوليد الأول الجامع الأموي الكبير عام 705م، آية في الفن والهندسة. ازدهرت العلوم والآداب والتجارة.",
+      facts: ["معاوية بن أبي سفيان", "الجامع الأموي 705م", "من إسبانيا للهند"],
+    },
+    {
+      year: "1148 م",
+      label: "الحروب الصليبية",
+      emoji: "⚔️",
+      title: "حصار دمشق الصليبي",
+      desc: "حاصر الصليبيون دمشق في الحملة الصليبية الثانية، لكنها صمدت وأُفشل الحصار بعد أيام.",
+      details:
+        "أدى فشل الحصار إلى وهن الحملة الصليبية الثانية. أبدت دمشق عبقرية دبلوماسية بتحالفها مع القوى المجاورة.",
+      facts: [
+        "الحملة الصليبية الثانية",
+        "أربعة أيام حصار",
+        "تحالف إسلامي مضاد",
+      ],
+    },
+    {
+      year: "1516 م",
+      label: "الفتح العثماني",
+      emoji: "🔱",
+      title: "دمشق في الدولة العثمانية",
+      desc: "بعد معركة مرج دابق، دخلت دمشق في نطاق الدولة العثمانية في عهد عثماني دام أربعة قرون.",
+      details:
+        "أصبحت دمشق محطة أساسية لحج مكة. شُيّدت الأسواق كسوق الحميدية والتكايا والمدارس.",
+      facts: ["مرج دابق 1516م", "السلطان سليم الأول", "محطة الحج"],
+    },
+    {
+      year: "1920 م",
+      label: "الاستقلال والانتداب",
+      emoji: "🏴",
+      title: "المملكة العربية السورية",
+      desc: "أعلن فيصل الأول المملكة العربية السورية ثم نالت سوريا استقلالها عام 1946م.",
+      details:
+        "ثورة 1925 انطلقت من جبل العرب. في 17 أبريل 1946 غادر آخر جندي فرنسي سوريا.",
+      facts: ["فيصل الأول 1920م", "معركة ميسلون", "الاستقلال 1946"],
+    },
+  ];
+  const inner = document.getElementById("timelineInner");
+  const line = document.getElementById("timelineLine");
+  let activeIdx = null;
+  function renderTimeline() {
+    inner.innerHTML = "";
+    events.forEach((ev, i) => {
+      const isTop = i % 2 === 0;
+      const wrapper = document.createElement("div");
+      wrapper.className = "card-wrapper";
+      wrapper.style.cssText = isTop
+        ? "flex-direction: column; justify-content: flex-end; align-items: center; transform: translateY(-130px);"
+        : "flex-direction: column; justify-content: flex-start; align-items: center; transform: translateY(130px);";
+      const card = document.createElement("div");
+      card.className = `card ${isTop ? "card-top" : "card-bottom"} ${activeIdx === i ? "active" : ""}`;
+      card.innerHTML = `
+      <div style="width:100%;height:55%;background:linear-gradient(135deg,#edb13a, #f7d755, #ecd148, #f59e0b);display:flex;align-items:center;justify-content:center;font-size:36px;">
+        <img style="width:100%;height:100%;" src="./assets/10.png"/>
+        </div>
+      <div class="card-info" style="position:relative;background:none;padding:10px;">
+        <div class="card-year">${ev.year}</div>
+        <div class="card-label">${ev.label}</div>
+      </div>
+    `;
+      const conn = document.createElement("div");
+      conn.className = "connector";
+      const dot = document.createElement("div");
+      dot.className = `dot ${activeIdx === i ? "active" : ""}`;
+      if (isTop) {
+        wrapper.appendChild(card);
+        wrapper.appendChild(conn);
+        wrapper.appendChild(dot);
+        wrapper.style.marginTop = "0";
+        wrapper.style.marginBottom = "0";
+      } else {
+        wrapper.appendChild(dot);
+        wrapper.appendChild(conn);
+        wrapper.appendChild(card);
+      }
+      wrapper.addEventListener("click", () => handleCardClick(i));
+      inner.appendChild(wrapper);
+    });
+    const totalCards = events.length;
+    const lineWidth = totalCards * (160 + 36) + 80;
+    line.style.width = lineWidth + "px";
+  }
+  function handleCardClick(i) {
+    const isEven = i % 2 === 0;
+    if (isEven) {
+      showPopup(i);
+    } else {
+      if (activeIdx === i) {
+        activeIdx = null;
+        document.getElementById("detailPanel").classList.remove("visible");
+      } else {
+        activeIdx = i;
+        showDetailPanel(i);
+      }
+      renderTimeline();
+    }
+  }
+  function showDetailPanel(i) {
+    const ev = events[i];
+    const panel = document.getElementById("detailPanel");
+    document.getElementById("dp-emoji").textContent = ev.emoji;
+    document.getElementById("dp-year").textContent = ev.year;
+    document.getElementById("dp-title").textContent = ev.title;
+    document.getElementById("dp-label").textContent = ev.label;
+    document.getElementById("dp-desc").textContent = ev.desc;
+    document.getElementById("dp-details").textContent = ev.details;
+    const factsEl = document.getElementById("dp-facts");
+    factsEl.innerHTML = '<div class="detail-facts-title">أبرز الحقائق</div>';
+    ev.facts.forEach((f) => {
+      const tag = document.createElement("span");
+      tag.className = "fact-tag";
+      tag.textContent = f;
+      factsEl.appendChild(tag);
+    });
+    panel.classList.add("visible");
+  }
+  function showPopup(i) {
+    const ev = events[i];
+    document.getElementById("pu-emoji").textContent = ev.emoji;
+    document.getElementById("pu-year").textContent = ev.year;
+    document.getElementById("pu-title").textContent = ev.title;
+    document.getElementById("pu-label").textContent = ev.label;
+    document.getElementById("pu-desc").textContent = ev.desc;
+    document.getElementById("pu-details").textContent = ev.details;
+    const factsEl = document.getElementById("pu-facts");
+    factsEl.innerHTML = "";
+    ev.facts.forEach((f) => {
+      const tag = document.createElement("span");
+      tag.className = "popup-fact-tag";
+      tag.textContent = f;
+      factsEl.appendChild(tag);
+    });
+    document.getElementById("popupOverlay").classList.add("visible");
+  }
+  document.getElementById("popupClose").addEventListener("click", () => {
+    document.getElementById("popupOverlay").classList.remove("visible");
+  });
+  document.getElementById("popupOverlay").addEventListener("click", (e) => {
+    if (e.target === document.getElementById("popupOverlay")) {
+      document.getElementById("popupOverlay").classList.remove("visible");
+    }
+  });
+  renderTimeline();
+</script>

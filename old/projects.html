@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دمشق</title>
+    <link rel="stylesheet" href="projectsStyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="portal">
+      <div class="topbar">
+        <div class="logo"><div class="logo-in"></div></div>
+        <span class="topbar-title">منصة المشاريع</span>
+        <div class="topbar-right">
+          <div class="sdot"></div>
+          <span style="font-size: 10px; color: rgba(255, 255, 255, 0.35)"
+            >مرحباً</span
+          >
+          <div class="contact-btn">تواصل معنا</div>
+        </div>
+      </div>
+
+      <div class="breadcrumb" id="bc">
+        <span class="bc-item active" id="bc-home" onclick="goHome()"
+          >الرئيسية</span
+        >
+      </div>
+
+      <!-- PAGE 1: قائمة المشاريع -->
+      <div class="page visible" id="page1">
+        <div class="p1-body">
+          <div class="sidebar">
+            <div class="s-label">بحسب القطاع</div>
+            <div class="s-item active" onclick="filterSector(this, 'الكل')">
+              الكل
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'التعليم')">
+              التعليم
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'الصحة')">
+              الصحة
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'البنية التحتية')">
+              البنية التحتية
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'التقنية')">
+              التقنية
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'البيئة')">
+              البيئة
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'الطاقة')">
+              الطاقة
+            </div>
+            <div class="s-div"></div>
+            <div class="s-label">الحالة</div>
+            <div class="s-item" onclick="filterSector(this, 'نشط')">النشطة</div>
+            <div class="s-item" onclick="filterSector(this, 'مكتمل')">
+              المكتملة
+            </div>
+            <div class="s-item" onclick="filterSector(this, 'قيد الدراسة')">
+              قيد الدراسة
+            </div>
+          </div>
+          <div class="p1-main">
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-num">١٢</div>
+                <div class="stat-lbl">إجمالي المشاريع</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" style="color: #fac775">٨</div>
+                <div class="stat-lbl">مشاريع نشطة</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" style="color: #85b7eb">٣</div>
+                <div class="stat-lbl">مكتملة</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" style="color: rgba(255, 255, 255, 0.4)">
+                  ١
+                </div>
+                <div class="stat-lbl">قيد الدراسة</div>
+              </div>
+            </div>
+            <div class="search-row">
+              <input
+                class="search-box"
+                placeholder="ابحث عن مشروع..."
+                id="search-input"
+                oninput="filterSearch()"
+              />
+              <div
+                class="filter-btn on"
+                id="fb-all"
+                onclick="setFilter('الكل', this)"
+              >
+                الكل
+              </div>
+              <div
+                class="filter-btn"
+                id="fb-active"
+                onclick="setFilter('نشط', this)"
+              >
+                نشط
+              </div>
+              <div
+                class="filter-btn"
+                id="fb-done"
+                onclick="setFilter('مكتمل', this)"
+              >
+                مكتمل
+              </div>
+            </div>
+            <div class="projects-grid" id="projects-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 2: تفاصيل مشروع -->
+      <div class="page" id="page2">
+        <div class="p2-body">
+          <div class="sidebar">
+            <div class="s-label">بحسب القطاع</div>
+            <div class="s-item" onclick="goHome()">الكل</div>
+            <div class="s-item active">التعليم</div>
+            <div class="s-item">الصحة</div>
+            <div class="s-item">البنية التحتية</div>
+            <div class="s-item">التقنية</div>
+            <div class="s-item">البيئة</div>
+            <div class="s-div"></div>
+            <div class="s-item">النشطة</div>
+            <div class="s-item">المكتملة</div>
+          </div>
+          <div class="p2-main">
+            <div class="back-btn" onclick="goHome()">
+              <div class="back-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M8 3l4 4-4 4M3 7h9"
+                    stroke="#5DCAA5"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              العودة للقائمة
+            </div>
+            <div class="card">
+              <div class="field-lbl">اسم المشروع</div>
+              <input
+                class="dark-input"
+                id="proj-name-field"
+                placeholder="اسم المشروع"
+                readonly
+              />
+            </div>
+            <div class="row3">
+              <div class="card">
+                <div class="card-ttl">حالة الدعم</div>
+                <div style="display: flex; align-items: center; gap: 6px">
+                  <div
+                    style="
+                      width: 8px;
+                      height: 8px;
+                      border-radius: 50%;
+                      background: #5dcaa5;
+                    "
+                  ></div>
+                  <span style="font-size: 12px; color: #5dcaa5">ممول</span>
+                </div>
+                <div class="chip chip-t" style="margin-top: 8px">
+                  وزارة التعليم
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-ttl">قيمة المشروع</div>
+                <div
+                  id="proj-val-field"
+                  style="font-size: 18px; font-weight: 500; color: #fac775"
+                ></div>
+                <div
+                  style="
+                    font-size: 10px;
+                    color: rgba(255, 255, 255, 0.3);
+                    margin-top: 2px;
+                  "
+                >
+                  ريال سعودي
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-ttl">حالة التنفيذ</div>
+                <div
+                  id="proj-pct-field"
+                  style="font-size: 18px; font-weight: 500; color: #5dcaa5"
+                ></div>
+                <div class="ptrack">
+                  <div class="pfill" id="proj-pct-bar"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="card">
+                <div class="card-ttl">الجهات الداعمة</div>
+                <span class="chip chip-b">جهة داعمة ١</span>
+                <span class="chip chip-b">جهة داعمة ٢</span>
+                <span class="chip chip-t">شريك استراتيجي</span>
+              </div>
+              <div class="card">
+                <div class="card-ttl">المدة الزمنية</div>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-top: 4px;
+                  "
+                >
+                  <div>
+                    <div
+                      style="font-size: 10px; color: rgba(255, 255, 255, 0.3)"
+                    >
+                      البداية
+                    </div>
+                    <div style="font-size: 13px; color: #e2e8f0">
+                      يناير ٢٠٢٤
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      flex: 1;
+                      height: 1px;
+                      background: rgba(255, 255, 255, 0.08);
+                    "
+                  ></div>
+                  <div style="text-align: left">
+                    <div
+                      style="font-size: 10px; color: rgba(255, 255, 255, 0.3)"
+                    >
+                      النهاية
+                    </div>
+                    <div style="font-size: 13px; color: #e2e8f0">
+                      ديسمبر ٢٠٢٦
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-bottom: 10px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: rgba(255, 255, 255, 0.7);
+                  "
+                  >صور وميديا المشروع</span
+                >
+                <div style="display: flex; gap: 6px">
+                  <div
+                    style="
+                      font-size: 10px;
+                      padding: 4px 10px;
+                      border-radius: 6px;
+                      cursor: pointer;
+                      border: 0.5px solid rgba(29, 158, 117, 0.35);
+                      background: rgba(29, 158, 117, 0.1);
+                      color: #5dcaa5;
+                    "
+                  >
+                    صور
+                  </div>
+                  <div
+                    style="
+                      font-size: 10px;
+                      padding: 4px 10px;
+                      border-radius: 6px;
+                      cursor: pointer;
+                      border: 0.5px solid rgba(55, 138, 221, 0.35);
+                      background: rgba(55, 138, 221, 0.1);
+                      color: #85b7eb;
+                    "
+                  >
+                    فيديو
+                  </div>
+                  <div
+                    style="
+                      font-size: 10px;
+                      padding: 4px 10px;
+                      border-radius: 6px;
+                      cursor: pointer;
+                      border: 0.5px solid rgba(186, 117, 23, 0.3);
+                      background: rgba(186, 117, 23, 0.1);
+                      color: #fac775;
+                    "
+                  >
+                    ملفات
+                  </div>
+                </div>
+              </div>
+              <div class="media-grid">
+                <div class="mthumb">
+                  <div class="mplaceholder" style="background: #1a2535">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <rect
+                        width="28"
+                        height="28"
+                        rx="6"
+                        fill="rgba(55,138,221,0.15)"
+                      />
+                      <circle
+                        cx="9"
+                        cy="10"
+                        r="3"
+                        fill="#378ADD"
+                        opacity=".5"
+                      />
+                      <path
+                        d="M2 20l7-7 5 5 4-4 8 8H2z"
+                        fill="#378ADD"
+                        opacity=".3"
+                      /></svg
+                    ><span
+                      style="font-size: 9px; color: rgba(255, 255, 255, 0.3)"
+                      >صورة ١</span
+                    >
+                  </div>
+                  <div class="mov">
+                    <div class="eye"><div class="eye-in"></div></div>
+                  </div>
+                  <div class="mbadge">JPG</div>
+                  <div class="mcap">موقع المشروع</div>
+                </div>
+                <div class="mthumb">
+                  <div class="mplaceholder" style="background: #1a2030">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <rect
+                        width="28"
+                        height="28"
+                        rx="6"
+                        fill="rgba(29,158,117,0.15)"
+                      />
+                      <rect
+                        x="4"
+                        y="8"
+                        width="20"
+                        height="12"
+                        rx="3"
+                        fill="rgba(29,158,117,0.2)"
+                      />
+                      <path
+                        d="M11 11l7 3.5L11 18z"
+                        fill="#1D9E75"
+                        opacity=".7"
+                      /></svg
+                    ><span
+                      style="font-size: 9px; color: rgba(255, 255, 255, 0.3)"
+                      >فيديو</span
+                    >
+                  </div>
+                  <div class="mov">
+                    <div class="eye"><div class="eye-in"></div></div>
+                  </div>
+                  <div class="mbadge">MP4</div>
+                  <div class="mcap">جولة افتراضية</div>
+                </div>
+                <div class="mthumb">
+                  <div class="mplaceholder" style="background: #1f1a2a">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <rect
+                        width="28"
+                        height="28"
+                        rx="6"
+                        fill="rgba(93,202,165,0.1)"
+                      />
+                      <circle
+                        cx="14"
+                        cy="12"
+                        r="5"
+                        fill="rgba(93,202,165,0.2)"
+                      />
+                      <rect
+                        x="3"
+                        y="20"
+                        width="22"
+                        height="2"
+                        rx="1"
+                        fill="rgba(93,202,165,0.15)"
+                      /></svg
+                    ><span
+                      style="font-size: 9px; color: rgba(255, 255, 255, 0.3)"
+                      >صورة ٢</span
+                    >
+                  </div>
+                  <div class="mov">
+                    <div class="eye"><div class="eye-in"></div></div>
+                  </div>
+                  <div class="mbadge">PNG</div>
+                  <div class="mcap">مخطط التصميم</div>
+                </div>
+                <div class="upload-z">
+                  <div
+                    style="
+                      width: 24px;
+                      height: 24px;
+                      background: rgba(29, 158, 117, 0.15);
+                      border-radius: 6px;
+                      margin: 0 auto 5px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <div
+                      style="
+                        position: relative;
+                        width: 12px;
+                        height: 2px;
+                        background: #5dcaa5;
+                      "
+                    >
+                      <div
+                        style="
+                          position: absolute;
+                          width: 2px;
+                          height: 12px;
+                          background: #5dcaa5;
+                          top: -5px;
+                          right: 5px;
+                        "
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    style="font-size: 10px; color: rgba(255, 255, 255, 0.35)"
+                  >
+                    رفع ميديا
+                  </div>
+                  <div
+                    style="
+                      font-size: 9px;
+                      color: rgba(255, 255, 255, 0.2);
+                      margin-top: 2px;
+                    "
+                  >
+                    JPG · PNG · MP4
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-ttl">آخر المستجدات</div>
+              <div class="tl-item">
+                <div class="tl-dot"></div>
+                <div>
+                  <div class="tl-txt">اعتماد مرحلة التنفيذ الثانية بنجاح</div>
+                  <div class="tl-date">١٥ مارس ٢٠٢٥</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot" style="background: #fac775"></div>
+                <div>
+                  <div class="tl-txt">اجتماع متابعة مع الجهات الداعمة</div>
+                  <div class="tl-date">٢ مارس ٢٠٢٥</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot" style="background: #85b7eb"></div>
+                <div>
+                  <div class="tl-txt">
+                    رفع التقارير الميدانية للمرحلة الأولى
+                  </div>
+                  <div class="tl-date">١٠ فبراير ٢٠٢٥</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const projects = [
+        {
+          name: "مشروع تطوير المناهج الرقمية",
+          sector: "التعليم",
+          status: "نشط",
+          value: "٤.٢ مليون",
+          pct: 60,
+          color: "#1a2535",
+          dot: "#5DCAA5",
+        },
+        {
+          name: "مبادرة الصحة الريفية",
+          sector: "الصحة",
+          status: "نشط",
+          value: "٧.٨ مليون",
+          pct: 35,
+          color: "#1f1a2a",
+          dot: "#5DCAA5",
+        },
+        {
+          name: "توسعة شبكة الطرق السريعة",
+          sector: "البنية التحتية",
+          status: "مكتمل",
+          value: "٢٢ مليون",
+          pct: 100,
+          color: "#1a2030",
+          dot: "#85B7EB",
+        },
+        {
+          name: "منصة الخدمات الحكومية الذكية",
+          sector: "التقنية",
+          status: "نشط",
+          value: "٩.١ مليون",
+          pct: 75,
+          color: "#1a1f2e",
+          dot: "#5DCAA5",
+        },
+        {
+          name: "مشروع التشجير الوطني",
+          sector: "البيئة",
+          status: "نشط",
+          value: "٣.٥ مليون",
+          pct: 50,
+          color: "#182518",
+          dot: "#5DCAA5",
+        },
+        {
+          name: "محطة طاقة شمسية",
+          sector: "الطاقة",
+          status: "قيد الدراسة",
+          value: "١٨ مليون",
+          pct: 10,
+          color: "#252015",
+          dot: "#FAC775",
+        },
+        {
+          name: "برنامج التدريب المهني",
+          sector: "التعليم",
+          status: "مكتمل",
+          value: "٢.٩ مليون",
+          pct: 100,
+          color: "#1a2535",
+          dot: "#85B7EB",
+        },
+        {
+          name: "نظام إدارة النفايات الذكي",
+          sector: "البيئة",
+          status: "نشط",
+          value: "٥.٦ مليون",
+          pct: 45,
+          color: "#182518",
+          dot: "#5DCAA5",
+        },
+        {
+          name: "مستشفى منطقة الشمال",
+          sector: "الصحة",
+          status: "مكتمل",
+          value: "٣٥ مليون",
+          pct: 100,
+          color: "#1f1a2a",
+          dot: "#85B7EB",
+        },
+      ];
+
+      let currentFilter = "الكل";
+      let currentSector = "الكل";
+      let currentSearch = "";
+
+      function renderGrid() {
+        const grid = document.getElementById("projects-grid");
+        const filtered = projects.filter((p) => {
+          const matchF = currentFilter === "الكل" || p.status === currentFilter;
+          const matchS = currentSector === "الكل" || p.sector === currentSector;
+          const matchQ =
+            !currentSearch ||
+            p.name.includes(currentSearch) ||
+            p.sector.includes(currentSearch);
+          return matchF && matchS && matchQ;
+        });
+        grid.innerHTML = filtered
+          .map(
+            (p, i) => `
+    <div class="proj-card" onclick="openProject(${projects.indexOf(p)})">
+      <div class="proj-thumb" style="background:${p.color}">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="rgba(255,255,255,0.06)"/><circle cx="12" cy="13" r="4" fill="rgba(255,255,255,0.12)"/><path d="M3 26l9-9 6 6 5-5 10 10H3z" fill="rgba(255,255,255,0.08)"/></svg>
+        <div class="proj-sector-tag">${p.sector}</div>
+        <div class="proj-status-dot" style="background:${p.dot}"></div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-name">${p.name}</div>
+        <div class="proj-meta">
+          <span class="proj-val">${p.value} ر.س</span>
+          <span class="proj-pct">${p.pct}%</span>
+        </div>
+        <div class="proj-bar"><div class="proj-bar-fill" style="width:${p.pct}%;background:${p.dot}"></div></div>
+      </div>
+    </div>
+  `,
+          )
+          .join("");
+      }
+      function openProject(idx) {
+        const p = projects[idx];
+        document.getElementById("proj-name-field").value = p.name;
+        document.getElementById("proj-val-field").textContent = p.value;
+        document.getElementById("proj-pct-field").textContent = p.pct + "%";
+        document.getElementById("proj-pct-bar").style.width = p.pct + "%";
+        document.getElementById("page1").classList.remove("visible");
+        document.getElementById("page2").classList.add("visible");
+        document.getElementById("bc").innerHTML =
+          `<span class="bc-item" onclick="goHome()" style="cursor:pointer">الرئيسية</span><span class="bc-sep">›</span><span class="bc-item active">${p.sector}</span><span class="bc-sep">›</span><span class="bc-item active">${p.name}</span>`;
+      }
+      function goHome() {
+        document.getElementById("page1").classList.add("visible");
+        document.getElementById("page2").classList.remove("visible");
+        document.getElementById("bc").innerHTML =
+          `<span class="bc-item active">الرئيسية</span>`;
+      }
+      function filterSector(el, sector) {
+        document
+          .querySelectorAll(".s-item")
+          .forEach((x) => x.classList.remove("active"));
+        el.classList.add("active");
+        currentSector = sector;
+        if (["نشط", "مكتمل", "قيد الدراسة"].includes(sector)) {
+          currentFilter = sector;
+          currentSector = "الكل";
+        } else {
+          currentFilter = "الكل";
+        }
+        renderGrid();
+      }
+      function setFilter(f, el) {
+        currentFilter = f;
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((x) => x.classList.remove("on"));
+        el.classList.add("on");
+        renderGrid();
+      }
+      function filterSearch() {
+        currentSearch = document.getElementById("search-input").value;
+        renderGrid();
+      }
+      renderGrid();
+    </script>
+  </body>
+</html>

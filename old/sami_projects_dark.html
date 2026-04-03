@@ -1,0 +1,1349 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  .portal {
+    /* background: #13151f; */
+    background: #3d3a3b;
+    /* border-radius: 16px; */
+    overflow: hidden;
+    font-family: var(--font-sans);
+    direction: rtl;
+    min-height: 760px;
+  }
+  .topbar {
+    /* background: #0e1018; */
+    background: #161616;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo {
+    width: 70px;
+    height: 70px;
+    background: #ebebeb;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-img {
+    width: 70px;
+    /* height: 12px; */
+    /* border: 2px solid rgba(255, 255, 255, 0.9); */
+    /* border-radius: 50%; */
+  }
+  .tb-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e2e8f0;
+  }
+  .tb-right {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cbtn {
+    font-size: 11px;
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 1);
+    color: #161616;
+    border: 0.5px solid #161616;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .sdot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+  .bc {
+    padding: 8px 18px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .bc span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+  }
+  .bc span.act {
+    color: #ffffff;
+  }
+  .page {
+    display: none;
+  }
+  .page.vis {
+    display: block;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    min-height: 700px;
+  }
+  .sidebar {
+    /* background: #0e1018; */
+    /* background: #ffffff; */
+    background: #161616;
+    border-left: 0.5px solid rgba(255, 255, 255, 0.07);
+    padding: 14px 10px;
+  }
+  .slbl {
+    /* font-size: 10px; */
+    font-size: 14px;
+    /* color: rgba(255, 255, 255, 0.28); */
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 8px;
+    padding-right: 4px;
+  }
+  .si {
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    /* color: rgba(255, 255, 255, 0.5); */
+    color: rgb(208, 204, 204);
+    cursor: pointer;
+    border: 0.5px solid transparent;
+    margin-bottom: 3px;
+    transition: all 0.15s;
+  }
+  .si:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .si.act {
+    /* background: rgba(29, 158, 117, 0.12); */
+    background: rgba(229, 226, 219, 0.8);
+    /* border-color: rgba(29, 158, 117, 0.3); */
+    border-color: #161616;
+    /* color: #ffffff; */
+    color: #161616;
+  }
+  .sdiv {
+    height: 0.5px;
+    background: rgba(255, 255, 255, 0.07);
+    margin: 10px 0;
+  }
+  .main {
+    padding: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stats-top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .sc {
+    /* background: #161616; */
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .sn {
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  .sl {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 3px;
+  }
+  .schange {
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .chart-card {
+    /* background: #161616; */
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .chart-title {
+    font-size: 11px;
+    /* color: #161616; */
+    color: #161616;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .bar-val {
+    font-size: 10px;
+    /* color: #161616; */
+    color: #161616;
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .donut-svg {
+    flex-shrink: 0;
+  }
+  .donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    flex: 1;
+  }
+  .dl-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .dl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dl-name {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    flex: 1;
+  }
+  .dl-val {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+  }
+  .total-bar {
+    /* background: #161616; */
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .total-label {
+    font-size: 11px;
+    /* color: #161616; */
+    color: #161616;
+  }
+  .total-val {
+    font-size: 20px;
+    font-weight: 500;
+    color: #ebebeb;
+  }
+  .total-sub {
+    font-size: 10px;
+    color: #ebebeb;
+    margin-top: 2px;
+  }
+  .progress-segments {
+    flex: 1;
+    display: flex;
+    gap: 3px;
+    height: 10px;
+  }
+  .seg {
+    border-radius: 3px;
+    height: 100%;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .sbox {
+    flex: 1;
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 34px;
+    padding: 0 12px;
+    color: #ebebeb;
+    font-size: 12px;
+    outline: none;
+    font-family: var(--font-sans);
+  }
+  .sbox::placeholder {
+    color: rgba(255, 255, 255, 1);
+  }
+  .fbtn {
+    font-size: 11px;
+    padding: 0 14px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(255, 255, 255);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .fbtn.on {
+    background: rgb(255, 255, 255);
+    border-color: rgba(255, 255, 255, 1);
+    color: #161616;
+  }
+
+  .pgrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .pc {
+    /* background: #161616; */
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .pc:hover {
+    border-color: rgba(29, 158, 117, 0.4);
+  }
+  .pthumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .ptag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 99px;
+    background: rgba(0, 0, 0, 0.55);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .pdot {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .pinfo {
+    padding: 10px 12px;
+  }
+  .pname {
+    font-size: 12px;
+    font-weight: 500;
+    color: #e2e8f0;
+    margin-bottom: 5px;
+  }
+  .pmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pval {
+    font-size: 10px;
+    /* color: #161616; */
+    color: #161616;
+  }
+  .ppct {
+    font-size: 10px;
+    color: #ffffff;
+    font-weight: 500;
+  }
+  .pbar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    margin-top: 7px;
+    overflow: hidden;
+  }
+  .pbfill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .p2main {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-bottom: 2px;
+  }
+  .di {
+    background: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 34px;
+    width: 100%;
+    color: #e2e8f0;
+    font-size: 13px;
+    padding: 0 12px;
+    outline: none;
+    font-family: var(--font-sans);
+  }
+  .r2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .r3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .cd {
+    /* background: #161616; */
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .ct {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 7px;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 99px;
+    margin: 2px;
+  }
+  .ct-chip {
+    background: rgba(29, 158, 117, 0.12);
+    color: #ffffff;
+    border: 0.5px solid rgba(29, 158, 117, 0.25);
+  }
+  .cb-chip {
+    background: rgba(55, 138, 221, 0.12);
+    color: #ebebeb;
+    border: 0.5px solid rgba(55, 138, 221, 0.25);
+  }
+  .pt {
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .pf {
+    height: 100%;
+    border-radius: 3px;
+    background: #1d9e75;
+  }
+  .mgrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .mt {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+  .mt:hover {
+    border-color: rgba(29, 158, 117, 0.45);
+  }
+  .mt:hover .mov {
+    opacity: 1;
+  }
+  .mph {
+    width: 100%;
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mov {
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 158, 117, 0.18);
+    opacity: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  .eye {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .eyin {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+  .mbg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .mc {
+    font-size: 9px;
+    color: #ebebeb;
+    padding: 4px 6px;
+    background: rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  .upz {
+    border: 0.5px dashed rgba(29, 158, 117, 0.4);
+    border-radius: 8px;
+    padding: 14px 8px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(29, 158, 117, 0.03);
+    transition: all 0.15s;
+  }
+  .upz:hover {
+    background: rgba(29, 158, 117, 0.08);
+  }
+  .tli {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  }
+  .tli:last-child {
+    border: none;
+  }
+  .tld {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .tlt {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+  }
+  .tldate {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.25);
+    margin-top: 2px;
+  }
+</style>
+<div class="portal">
+  <div class="topbar">
+    <div class="logo">
+      <img class="logo-img" src="assets/logo.png" alt="logo" />
+    </div>
+    <span class="tb-title">منصة المشاريع</span>
+    <div class="tb-right">
+      <a href="index.html" class="cbtn">عودة</a>
+    </div>
+  </div>
+  <div class="bc" id="bc"><span class="act">الرئيسية</span></div>
+  <div class="page vis" id="page1">
+    <div class="layout">
+      <div class="sidebar">
+        <div class="slbl">بحسب القطاع</div>
+        <div class="si act" onclick="filterSector(this, 'الكل')">الكل</div>
+        <div class="si" onclick="filterSector(this, 'التعليم')">التعليم</div>
+        <div class="si" onclick="filterSector(this, 'الصحة')">الصحة</div>
+        <div class="si" onclick="filterSector(this, 'البنية التحتية')">
+          البنية التحتية
+        </div>
+        <div class="si" onclick="filterSector(this, 'التقنية')">التقنية</div>
+        <div class="si" onclick="filterSector(this, 'البيئة')">البيئة</div>
+        <div class="si" onclick="filterSector(this, 'الطاقة')">الطاقة</div>
+        <div class="sdiv"></div>
+        <div class="slbl">الحالة</div>
+        <div class="si" onclick="filterSector(this, 'نشط')">النشطة</div>
+        <div class="si" onclick="filterSector(this, 'مكتمل')">المكتملة</div>
+        <div class="si" onclick="filterSector(this, 'قيد الدراسة')">
+          قيد الدراسة
+        </div>
+      </div>
+      <div class="main">
+        <div class="stats-top">
+          <div class="sc">
+            <div class="sn">١٢</div>
+            <div class="sl">إجمالي المشاريع</div>
+            <div class="schange" style="color: #ffffff">+٢ هذا الربع</div>
+          </div>
+          <div class="sc">
+            <div class="sn" style="color: #ebebeb">٨</div>
+            <div class="sl">مشاريع نشطة</div>
+            <div class="schange" style="color: #ebebeb">٦٧٪ من الإجمالي</div>
+          </div>
+          <div class="sc">
+            <div class="sn" style="color: #ebebeb">٣</div>
+            <div class="sl">مكتملة</div>
+            <div class="schange" style="color: #ebebeb">+١ هذا الشهر</div>
+          </div>
+          <div class="sc">
+            <div class="sn" style="color: #ebebeb">١</div>
+            <div class="sl">قيد الدراسة</div>
+            <div class="schange" style="color: rgba(255, 255, 255)">معلّق</div>
+          </div>
+        </div>
+        <div class="total-bar">
+          <div>
+            <div class="total-label">القيمة الإجمالية للتمويل</div>
+            <div class="total-val">١٠٨.١ مليون ر.س</div>
+            <div class="total-sub">موزّعة على ١٢ مشروع في ٦ قطاعات</div>
+          </div>
+          <div style="flex: 1">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 5px;
+              "
+            >
+              <span style="font-size: 10px; color: #ebebeb">نشط</span>
+              <span style="font-size: 10px; color: #ebebeb">مكتمل</span>
+              <span style="font-size: 10px; color: #ebebeb">دراسة</span>
+            </div>
+            <div class="progress-segments">
+              <div class="seg" style="flex: 67; background: #1d9e75"></div>
+              <div class="seg" style="flex: 25; background: #378add"></div>
+              <div class="seg" style="flex: 8; background: #ba7517"></div>
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 6px">
+              <span style="font-size: 10px; color: #ffffff">٦٧٪ نشط</span>
+              <span style="font-size: 10px; color: #ebebeb">٢٥٪ مكتمل</span>
+              <span style="font-size: 10px; color: #ebebeb">٨٪ دراسة</span>
+            </div>
+          </div>
+        </div>
+        <div class="charts-row">
+          <div class="chart-card">
+            <div class="chart-title">المشاريع حسب القطاع</div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label">التعليم</span>
+                <div
+                  class="bar-track"
+                  onclick="
+                    filterSector(
+                      document.querySelector('.si:nth-child(3)'),
+                      'التعليم',
+                    )
+                  "
+                >
+                  <div
+                    class="bar-fill"
+                    style="width: 25%; background: #1d9e75"
+                  ></div>
+                </div>
+                <span class="bar-val">٣</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">الصحة</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    style="width: 16%; background: #378add"
+                  ></div>
+                </div>
+                <span class="bar-val">٢</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">البنية التحتية</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    style="width: 8%; background: #5f5e5a"
+                  ></div>
+                </div>
+                <span class="bar-val">١</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">التقنية</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    style="width: 8%; background: #7f77dd"
+                  ></div>
+                </div>
+                <span class="bar-val">١</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">البيئة</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    style="width: 16%; background: #639922"
+                  ></div>
+                </div>
+                <span class="bar-val">٢</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">الطاقة</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    style="width: 8%; background: #ba7517"
+                  ></div>
+                </div>
+                <span class="bar-val">١</span>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">متوسط نسبة التنفيذ</div>
+            <div class="donut-wrap">
+              <svg width="90" height="90" viewBox="0 0 90 90" class="donut-svg">
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.06)"
+                  stroke-width="10"
+                />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="#1D9E75"
+                  stroke-width="10"
+                  stroke-dasharray="226.2"
+                  stroke-dashoffset="79"
+                  stroke-linecap="round"
+                  transform="rotate(-90 45 45)"
+                />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="#378ADD"
+                  stroke-width="10"
+                  stroke-dasharray="226.2"
+                  stroke-dashoffset="170"
+                  stroke-linecap="round"
+                  transform="rotate(21 45 45)"
+                />
+                <text
+                  x="45"
+                  y="42"
+                  text-anchor="middle"
+                  font-size="14"
+                  font-weight="500"
+                  fill="#e2e8f0"
+                >
+                  58%
+                </text>
+                <text
+                  x="45"
+                  y="55"
+                  text-anchor="middle"
+                  font-size="9"
+                  fill="rgba(255,255,255,0.4)"
+                >
+                  متوسط
+                </text>
+              </svg>
+              <div class="donut-legend">
+                <div class="dl-item">
+                  <div class="dl-dot" style="background: #1d9e75"></div>
+                  <span class="dl-name">نشطة</span
+                  ><span class="dl-val">65%</span>
+                </div>
+                <div class="dl-item">
+                  <div class="dl-dot" style="background: #378add"></div>
+                  <span class="dl-name">مكتملة</span
+                  ><span class="dl-val">100%</span>
+                </div>
+                <div class="dl-item">
+                  <div class="dl-dot" style="background: #ba7517"></div>
+                  <span class="dl-name">دراسة</span
+                  ><span class="dl-val">10%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search-row">
+          <input
+            class="sbox"
+            placeholder="ابحث عن مشروع..."
+            id="sinput"
+            oninput="filterSearch()"
+          />
+          <div class="fbtn on" id="fb-all" onclick="setFilter('الكل', this)">
+            الكل
+          </div>
+          <div class="fbtn" id="fb-act" onclick="setFilter('نشط', this)">
+            نشط
+          </div>
+          <div class="fbtn" id="fb-done" onclick="setFilter('مكتمل', this)">
+            مكتمل
+          </div>
+        </div>
+        <div class="pgrid" id="pgrid"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page" id="page2">
+    <div class="layout">
+      <div class="sidebar">
+        <div class="slbl">بحسب القطاع</div>
+        <div class="si" onclick="goHome()">الكل</div>
+        <div class="si act">التعليم</div>
+        <div class="si">الصحة</div>
+        <div class="si">البنية التحتية</div>
+        <div class="si">التقنية</div>
+        <div class="si">البيئة</div>
+        <div class="sdiv"></div>
+        <div class="si">النشطة</div>
+        <div class="si">المكتملة</div>
+      </div>
+      <div class="p2main">
+        <div class="back" onclick="goHome()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M8 3l4 4-4 4M3 7h9"
+              stroke="#ffffff"
+              stroke-width="1.3"
+              stroke-linecap="round"
+            />
+          </svg>
+          العودة للقائمة
+        </div>
+        <div class="cd">
+          <div class="ct">اسم المشروع</div>
+          <input class="di" id="pname" readonly />
+        </div>
+        <div class="r3">
+          <div class="cd">
+            <div class="ct">حالة الدعم</div>
+            <div style="display: flex; align-items: center; gap: 6px">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: #ffffff;
+                "
+              ></div>
+              <span style="font-size: 12px; color: #ffffff">ممول</span>
+            </div>
+            <div class="chip ct-chip" style="margin-top: 8px">
+              وزارة التعليم
+            </div>
+          </div>
+          <div class="cd">
+            <div class="ct">قيمة المشروع</div>
+            <div
+              id="pval"
+              style="font-size: 18px; font-weight: 500; color: #ebebeb"
+            ></div>
+            <div style="font-size: 10px; color: #ebebeb; margin-top: 2px">
+              ريال سعودي
+            </div>
+          </div>
+          <div class="cd">
+            <div class="ct">حالة التنفيذ</div>
+            <div
+              id="ppct"
+              style="font-size: 18px; font-weight: 500; color: #ffffff"
+            ></div>
+            <div class="pt"><div class="pf" id="pbar"></div></div>
+          </div>
+        </div>
+        <div class="r2">
+          <div class="cd">
+            <div class="ct">الجهات الداعمة</div>
+            <span class="chip cb-chip">جهة داعمة ١</span
+            ><span class="chip cb-chip">جهة داعمة ٢</span
+            ><span class="chip ct-chip">شريك استراتيجي</span>
+          </div>
+          <div class="cd">
+            <div class="ct">المدة الزمنية</div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 4px;
+              "
+            >
+              <div>
+                <div style="font-size: 10px; color: #ebebeb">البداية</div>
+                <div style="font-size: 13px; color: #e2e8f0">يناير ٢٠٢٤</div>
+              </div>
+              <div
+                style="
+                  flex: 1;
+                  height: 1px;
+                  background: rgba(255, 255, 255, 0.08);
+                "
+              ></div>
+              <div style="text-align: left">
+                <div style="font-size: 10px; color: #ebebeb">النهاية</div>
+                <div style="font-size: 13px; color: #e2e8f0">ديسمبر ٢٠٢٦</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cd">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 10px;
+            "
+          >
+            <span
+              style="
+                font-size: 12px;
+                font-weight: 500;
+                color: rgba(255, 255, 255, 0.7);
+              "
+              >صور وميديا المشروع</span
+            >
+            <div style="display: flex; gap: 6px">
+              <div
+                style="
+                  font-size: 10px;
+                  padding: 4px 10px;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  border: 0.5px solid rgba(29, 158, 117, 0.35);
+                  background: rgba(29, 158, 117, 0.1);
+                  color: #ffffff;
+                "
+              >
+                صور
+              </div>
+              <div
+                style="
+                  font-size: 10px;
+                  padding: 4px 10px;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  border: 0.5px solid rgba(55, 138, 221, 0.35);
+                  background: rgba(55, 138, 221, 0.1);
+                  color: #ebebeb;
+                "
+              >
+                فيديو
+              </div>
+              <div
+                style="
+                  font-size: 10px;
+                  padding: 4px 10px;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  border: 0.5px solid rgba(186, 117, 23, 0.3);
+                  background: rgba(186, 117, 23, 0.1);
+                  color: #ebebeb;
+                "
+              >
+                ملفات
+              </div>
+            </div>
+          </div>
+          <div class="mgrid">
+            <div class="mt">
+              <div class="mph" style="background: #1a2535">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect
+                    width="28"
+                    height="28"
+                    rx="6"
+                    fill="rgba(55,138,221,0.15)"
+                  />
+                  <circle cx="9" cy="10" r="3" fill="#378ADD" opacity=".5" />
+                  <path
+                    d="M2 20l7-7 5 5 4-4 8 8H2z"
+                    fill="#378ADD"
+                    opacity=".3"
+                  /></svg
+                ><span style="font-size: 9px; color: #ebebeb">صورة ١</span>
+              </div>
+              <div class="mov">
+                <div class="eye"><div class="eyin"></div></div>
+              </div>
+              <div class="mbg">JPG</div>
+              <div class="mc">موقع المشروع</div>
+            </div>
+            <div class="mt">
+              <div class="mph" style="background: #1a2030">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect
+                    width="28"
+                    height="28"
+                    rx="6"
+                    fill="rgba(29,158,117,0.15)"
+                  />
+                  <rect
+                    x="4"
+                    y="8"
+                    width="20"
+                    height="12"
+                    rx="3"
+                    fill="rgba(29,158,117,0.2)"
+                  />
+                  <path
+                    d="M11 11l7 3.5L11 18z"
+                    fill="#1D9E75"
+                    opacity=".7"
+                  /></svg
+                ><span style="font-size: 9px; color: #ebebeb">فيديو</span>
+              </div>
+              <div class="mov">
+                <div class="eye"><div class="eyin"></div></div>
+              </div>
+              <div class="mbg">MP4</div>
+              <div class="mc">جولة افتراضية</div>
+            </div>
+            <div class="mt">
+              <div class="mph" style="background: #1f1a2a">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect
+                    width="28"
+                    height="28"
+                    rx="6"
+                    fill="rgba(93,202,165,0.1)"
+                  />
+                  <circle cx="14" cy="12" r="5" fill="rgba(93,202,165,0.2)" />
+                  <rect
+                    x="3"
+                    y="20"
+                    width="22"
+                    height="2"
+                    rx="1"
+                    fill="rgba(93,202,165,0.15)"
+                  /></svg
+                ><span style="font-size: 9px; color: #ebebeb">صورة ٢</span>
+              </div>
+              <div class="mov">
+                <div class="eye"><div class="eyin"></div></div>
+              </div>
+              <div class="mbg">PNG</div>
+              <div class="mc">مخطط التصميم</div>
+            </div>
+            <div class="upz">
+              <div
+                style="
+                  width: 24px;
+                  height: 24px;
+                  background: rgba(29, 158, 117, 0.15);
+                  border-radius: 6px;
+                  margin: 0 auto 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <div
+                  style="
+                    position: relative;
+                    width: 12px;
+                    height: 2px;
+                    background: #ffffff;
+                  "
+                >
+                  <div
+                    style="
+                      position: absolute;
+                      width: 2px;
+                      height: 12px;
+                      background: #ffffff;
+                      top: -5px;
+                      right: 5px;
+                    "
+                  ></div>
+                </div>
+              </div>
+              <div style="font-size: 10px; color: rgba(255, 255, 255, 0.35)">
+                رفع ميديا
+              </div>
+              <div
+                style="
+                  font-size: 9px;
+                  color: rgba(255, 255, 255, 0.2);
+                  margin-top: 2px;
+                "
+              >
+                JPG · PNG · MP4
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cd">
+          <div class="ct">آخر المستجدات</div>
+          <div class="tli">
+            <div class="tld"></div>
+            <div>
+              <div class="tlt">اعتماد مرحلة التنفيذ الثانية بنجاح</div>
+              <div class="tldate">١٥ مارس ٢٠٢٥</div>
+            </div>
+          </div>
+          <div class="tli">
+            <div class="tld" style="background: #ebebeb"></div>
+            <div>
+              <div class="tlt">اجتماع متابعة مع الجهات الداعمة</div>
+              <div class="tldate">٢ مارس ٢٠٢٥</div>
+            </div>
+          </div>
+          <div class="tli">
+            <div class="tld" style="background: #ebebeb"></div>
+            <div>
+              <div class="tlt">رفع التقارير الميدانية للمرحلة الأولى</div>
+              <div class="tldate">١٠ فبراير ٢٠٢٥</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const projects = [
+    {
+      name: "مشروع تطوير المناهج الرقمية",
+      sector: "التعليم",
+      status: "نشط",
+      value: "٤.٢ مليون",
+      pct: 60,
+      bg: "#1d9e75",
+      dot: "#ebebeb",
+      image:"assets/image1.jpeg",
+    },
+    {
+      name: "مبادرة الصحة الريفية",
+      sector: "الصحة",
+      status: "نشط",
+      value: "٧.٨ مليون",
+      pct: 35,
+      bg: "#378add",
+      dot: "#ebebeb",
+      image:"assets/image2.jpeg",
+    },
+    {
+      name: "توسعة شبكة الطرق السريعة",
+      sector: "البنية التحتية",
+      status: "مكتمل",
+      value: "٢٢ مليون",
+      pct: 100,
+      bg: "#5f5e5a",
+      dot: "#ebebeb",
+      image:"assets/image3.jpeg",
+    },
+    {
+      name: "منصة الخدمات الحكومية الذكية",
+      sector: "التقنية",
+      status: "نشط",
+      value: "٩.١ مليون",
+      pct: 75,
+      bg: "#7f77dd",
+      dot: "#ebebeb",
+      image:"assets/image4.jpeg",
+    },
+    {
+      name: "مشروع التشجير الوطني",
+      sector: "البيئة",
+      status: "نشط",
+      value: "٣.٥ مليون",
+      pct: 50,
+      bg: "#639922",
+      dot: "#ebebeb",
+      image:"assets/image6.jpeg",
+    },
+    {
+      name: "محطة طاقة شمسية",
+      sector: "الطاقة",
+      status: "قيد الدراسة",
+      value: "١٨ مليون",
+      pct: 10,
+      bg: "#ba7517",
+      dot: "#ebebeb",
+      image:"assets/image1.jpeg",
+    },
+    {
+      name: "برنامج التدريب المهني",
+      sector: "التعليم",
+      status: "مكتمل",
+      value: "٢.٩ مليون",
+      pct: 100,
+      bg: "#1d9e75",
+      dot: "#ebebeb",
+      image:"assets/image2.jpeg",
+    },
+    {
+      name: "نظام إدارة النفايات الذكي",
+      sector: "البيئة",
+      status: "نشط",
+      value: "٥.٦ مليون",
+      pct: 45,
+      bg: "#639922",
+      dot: "#ebebeb",
+      image:"assets/image3.jpeg",
+    },
+    {
+      name: "مستشفى منطقة الشمال",
+      sector: "الصحة",
+      status: "مكتمل",
+      value: "٣٥ مليون",
+      pct: 100,
+      bg: "#378add",
+      dot: "#ebebeb",
+      image:"assets/image4.jpeg",
+    },
+  ];
+  let cFilter = "الكل",
+    cSector = "الكل",
+    cSearch = "";
+  function renderGrid() {
+    const g = document.getElementById("pgrid");
+    const f = projects.filter((p) => {
+      const mf = cFilter === "الكل" || p.status === cFilter;
+      const ms = cSector === "الكل" || p.sector === cSector;
+      const mq =
+        !cSearch || p.name.includes(cSearch) || p.sector.includes(cSearch);
+      return mf && ms && mq;
+    });
+    g.innerHTML = f
+      .map(
+        (p) => `
+    <div class="pc" onclick="openProject(${projects.indexOf(p)})">
+      <!-- <div class="pthumb" style="background:${p.bg}"> -->
+      <div class="pthumb" style="backgroundUrl:${p.image}">
+        <img style="width:100%; height:100%;" src="${p.image}"/>
+        <!-- <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="rgba(255,255,255,0.06)"/><circle cx="12" cy="13" r="4" fill="rgba(255,255,255,0.1)"/><path d="M3 26l9-9 6 6 5-5 10 10H3z" fill="rgba(255,255,255,0.07)"/></svg> -->
+        <div class="ptag">${p.sector}</div>
+        <div class="pdot" style="background:${p.dot}"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pname">${p.name}</div>
+        <div class="pmeta"><span class="pval">${p.value} ر.س</span><span class="ppct" style="color:${p.dot}">${p.pct}%</span></div>
+        <div class="pbar"><div class="pbfill" style="width:${p.pct}%;background:${p.dot}"></div></div>
+      </div>
+    </div>
+    `,
+      )
+      .join("");
+  }
+  function openProject(idx) {
+    const p = projects[idx];
+    document.getElementById("pname").value = p.name;
+    document.getElementById("pval").textContent = p.value;
+    document.getElementById("ppct").textContent = p.pct + "%";
+    document.getElementById("pbar").style.width = p.pct + "%";
+    document.getElementById("page1").classList.remove("vis");
+    document.getElementById("page2").classList.add("vis");
+    document.getElementById("bc").innerHTML =
+      `<span onclick="goHome()" style="cursor:pointer;color:rgba(255,255,255,0.35)">الرئيسية</span><span style="color:rgba(255,255,255,0.2);margin:0 4px">›</span><span style="color:rgba(255,255,255,0.35)">${p.sector}</span><span style="color:rgba(255,255,255,0.2);margin:0 4px">›</span><span class="act">${p.name}</span>`;
+  }
+  function goHome() {
+    document.getElementById("page1").classList.add("vis");
+    document.getElementById("page2").classList.remove("vis");
+    document.getElementById("bc").innerHTML =
+      `<span class="act">الرئيسية</span>`;
+  }
+  function filterSector(el, s) {
+    document
+      .querySelectorAll("#page1 .si")
+      .forEach((x) => x.classList.remove("act"));
+    if (el) el.classList.add("act");
+    if (["نشط", "مكتمل", "قيد الدراسة"].includes(s)) {
+      cFilter = s;
+      cSector = "الكل";
+    } else {
+      cSector = s;
+      cFilter = "الكل";
+    }
+    renderGrid();
+  }
+  function setFilter(f, el) {
+    cFilter = f;
+    document.querySelectorAll(".fbtn").forEach((x) => x.classList.remove("on"));
+    el.classList.add("on");
+    renderGrid();
+  }
+  function filterSearch() {
+    cSearch = document.getElementById("sinput").value;
+    renderGrid();
+  }
+  renderGrid();
+</script>

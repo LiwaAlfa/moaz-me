@@ -5,58 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>دمشق</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
-    <video class="video-bg" autoplay muted loop>
-      <source src="assets/background.mp4" type="video/mp4" />
-    </video>
-    <div class="overlay"></div>
-    <div class="navbar">
-      <a href="#" class="phrase1"><p>الأخبار</p></a>
-      <a href="#" class="phrase2"><p>التعاميم</p></a>
-      <a href="#" class="phrase3"><p>النظرة الثقافية</p></a>
-      <a href="services.html" class="phrase4"><p>الخدمات</p></a>
-      <div class="logo-box">
-        <img src="assets/logo.png" alt="logo" class="logo-img" />
-        <p class="logo-text-svg">محافظة دمشق</p>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide active">
+          <video autoplay muted loop>
+            <source src="assets/background.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="slide">
+          <img src="assets/7.jpg" alt="" />
+        </div>
+        <div class="slide">
+          <img src="assets/8.jpg" alt="" />
+        </div>
+        <div class="slide">
+          <img src="assets/9.png" alt="" />
+        </div>
+        <div class="slide">
+          <img src="assets/10.png" alt="" />
+        </div>
       </div>
-      <a href="#" class="phrase5"><p>دليل دمشق</p></a>
-      <a href="sami_projects.html" class="phrase6"><p>المشاريع</p></a>
-      <a href="services.html" class="phrase7"><p>حملة دمشق</p></a>
-      <a href="#" class="phrase8"><p>الاستثمارات</p></a>
+    </div>
+    <div class="overlay"></div>
+    <div class="slider-bars">
+      <span class="bar active"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="logo-box">
+      <img src="assets/logo.png" alt="logo" class="logo-img" />
+      <p class="logo-text">محافظة دمشق</p>
+    </div>
+    <div class="navbar-auto">
+      <a href="#" >الأخبـــــــــــار</a>
+      <a href="#">التعامــــيم</a>
+      <a href="./damascus_timeline_2.html" style="width: 150px">النظرة الثقافية</a>
+      <a href="#">الخدمـــــات</a>
+      <a href="#" style="width: 150px"></a>
+      <a href="#" style="width: 150px">دليل دمشق</a>
+      <a href="./sami_projects_dark.html">المشاريــع</a>
+      <a href="#" style="width: 140px">حملة دمشق</a>
+      <a href="#" style="width: 130px">الاستثمارات</a>
     </div>
     <div class="title-container">
       <h1 class="title">دمشق</h1>
       <p class="subtitle">المدينة التي تتكئ على ألف حكاية . . .</p>
     </div>
-    <div class="slideshow-container">
-      <div class="mySlides fade">
-        <div class="numbertext">1 / 3</div>
-        <img src="img1.jpg" style="width: 100%" />
-        <div class="text">Caption Text</div>
-      </div>
-      <div class="mySlides fade">
-        <div class="numbertext">2 / 3</div>
-        <img src="img2.jpg" style="width: 100%" />
-        <div class="text">Caption Two</div>
-      </div>
-      <div class="mySlides fade">
-        <div class="numbertext">3 / 3</div>
-        <img src="img3.jpg" style="width: 100%" />
-        <div class="text">Caption Three</div>
-      </div>
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br />
-    <div style="text-align: center">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-  </body>
+    <!-- <div style="background-color: aqua; height: 100vh;"></div> -->
+  </div>
+</div>
+<script>
+  const slides = document.querySelectorAll(".slide");
+  const bars = document.querySelectorAll(".bar");
+  let index = 0;
+  let interval;
+  function activateSlide(i) {
+    // remove current
+    slides[index].classList.remove("active");
+    bars[index].classList.remove("active");
+
+    // reset animation
+    bars[index].style.animation = "none";
+    bars[index].offsetHeight; // force reflow
+
+    // set new index
+    index = i;
+
+    // activate new
+    slides[index].classList.add("active");
+    bars[index].classList.add("active");
+  }
+
+  function showNextSlide() {
+    let nextIndex = (index + 1) % slides.length;
+    activateSlide(nextIndex);
+  }
+
+  function startSlider() {
+    interval = setInterval(showNextSlide, 5000);
+  }
+
+  function resetSlider() {
+    clearInterval(interval);
+    startSlider();
+  }
+
+  // 🔥 CLICK EVENT
+  bars.forEach((bar, i) => {
+    bar.addEventListener("click", () => {
+      activateSlide(i);
+      resetSlider(); // continue auto sliding after click
+    });
+  });
+
+  // start first
+  bars[0].classList.add("active");
+  startSlider();
+</script>
+
+ <!-- /JavaScript for slider -->
+
+</body>
 </html>
