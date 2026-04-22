@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الخريطة</title>
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <link
+      href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style_map.css" />
+  </head>
+  <body>
+    <div class="map_container">
+      <div class="map_left_side_menu" id="main-container">
+        <button class="map_btn active" data-category="health">الصحة</button>
+        <button class="map_btn" data-category="education">التعليم</button>
+        <button class="map_btn" data-category="services">الخدمات</button>
+        <button class="map_btn" data-category="security">الأمن</button>
+        <button class="map_btn" data-category="tourism">السياحة</button>
+      </div>
+      <div class="map_main_container">
+        <div class="main_up_side_menu_containers">
+          <div class="main_up_side_menu" id="leftSideMenu"></div>
+          <div class="main_up_side_menu" id="leftSideMenuFilter"></div>
+        </div>
+        <div class="map_wrapper" id="map-container">
+          <div id="map"></div>
+        </div>
+        <div
+          class="map_down_side_Image_details_container"
+          id="imageCardsContainer"
+        ></div>
+      </div>
+      <button id="Go_Up" class="go_up_btn">⌃</button>
+    </div>
+    <script src="app_map.js"></script>
+  </body>
+</html>
+<!-- for js integrity="sha512-6xV0t1Ik5+pUvNbK/CtYFQki71R+xVQ1BM8DT6vKrrO5gkP7FpC18JNpDutLCRa14Q6gttxyPjdJawGKuGInxw=="
+      crossorigin="anonymous" -->
+<!-- for css   integrity="sha512-0H0QzY4xXHzkwmo7aX6ixkmKuuNHYsYAGP82LPgAvFp8Z64Kbjsgg7sWXBJgp7wa9u0edPFpKnz03WxZmf0R9A=="
+      crossorigin="anonymous" -->
